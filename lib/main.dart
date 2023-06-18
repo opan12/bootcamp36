@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/pages/SignInPage.dart';
+import 'package:myapp/pages/SignUpPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:ui';
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       ),
       home: Scaffold(
         body: SingleChildScrollView(
-          child: SignInPage(),
+          child: SignUpPage(),
         ),
       ),
     );
