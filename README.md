@@ -77,9 +77,11 @@ Alınan kararlar: Figma tasarımları yapılmıştır ama grup üyelerinin ek fi
  
 
 
+
 ---
 
 ## Product Backlog URL
+https://trello.com/invite/b/ptew1gaJ/ATTI4cb5ec8fe8d1de6e2bafc633ee64aca4D7646901/is-bolumu
 
 
 ======
