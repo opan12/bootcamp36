@@ -57,7 +57,6 @@ Organizeısler App,bağımısız organizasyonlarda veya ev davetlerinde size uyg
 - **Sprint board update**: Sprint board screenshotları: 
 
 https://trello.com/invite/b/ptew1gaJ/ATTI4cb5ec8fe8d1de6e2bafc633ee64aca4D7646901/is-bolumu
-![image](https://github.com/opan12/bootcamp36/assets/114245040/1b66debc-3dc4-4b10-9716-fe2705ba479c)
 
 
 
