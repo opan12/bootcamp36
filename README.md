@@ -82,6 +82,7 @@ Alınan kararlar: Figma tasarımları yapılmıştır ama grup üyelerinin ek fi
 
 ## Product Backlog URL
 https://trello.com/invite/b/ptew1gaJ/ATTI4cb5ec8fe8d1de6e2bafc633ee64aca4D7646901/is-bolumu
+![image](https://github.com/opan12/bootcamp36/assets/114245040/b9ed501d-526b-47cb-8f2b-913512a03897)
 
 
 ======
