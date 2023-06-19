@@ -43,12 +43,13 @@ Organizeısler App,bağımısız organizasyonlarda veya ev davetlerinde size uyg
 ------------
 
 # Sprint 1
- -**Sprint Notları 
+ -**Sprint Notları :Tamamlanan kısımlar done kısmına yazılmıştır.Puanlamalarda yapılan sprint için ayrılan puana göre bölünmüştür. 
+ 
 - **Sprint içinde tamamlanması tahmin edilen puan**: 100 Puan
 
 
 - **Puan tamamlama mantığı**: Toplamda proje boyunca tamamlanması gereken 350 puanlık backlog bulunmaktadır. İlk spirnt için 100  puanlık bir ölçüm belirlendi.
-
+ 
 
 - **Daily Scrum**: Daily Scrum toplantılarımız google meets üzerinden gerçekleşmiştir.Katılamayan arkadaşlarımız o an whatsapp üzerinden bilgilendirilmesi yapılmıştır.Genel bir toplantıya gerek olmadığında ise whatsapp üzerinden iletişimizi sağladık. [-1. sprint notlar.txt](https://github.com/opan12/bootcamp36/files/11781915/-1.sprint.notlar.txt)
 [daily scrum.pdf](https://github.com/opan12/bootcamp36/files/11781920/daily.scrum.pdf)
