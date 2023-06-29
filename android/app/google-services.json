@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "740754709902",
+    "project_id": "organize-isler-a4105",
+    "storage_bucket": "organize-isler-a4105.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:740754709902:android:a4a30e2bcd0600679358df",
+        "android_client_info": {
+          "package_name": "com.example.organize_isler"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "740754709902-jtjgmjj2e82v1ocip19mahgiunr7f6dk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZfI4mj_nAt3pwyb-Kfe__PnZVKGvSQ48"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "740754709902-jtjgmjj2e82v1ocip19mahgiunr7f6dk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

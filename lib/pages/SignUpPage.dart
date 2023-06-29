@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/gestures.dart';
 import 'dart:ui';
-import 'package:google_fonts/google_fonts.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:organize_isler/pages/AccountPage.dart';
+import 'package:organize_isler/reusable_widgets/reusable_widgets.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -10,6 +11,10 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  TextEditingController _passwordTextController = TextEditingController();
+  TextEditingController _emailTextController = TextEditingController();
+  TextEditingController _userNameTextController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -18,9 +23,10 @@ class _SignUpPageState extends State<SignUpPage> {
     double fem = screenWidth / baseWidth;
     double ffem = fem * 0.97;
 
-    return Container(
-      width: screenWidth,
-      height: screenHeight,
+    return Material(
+        child: Container(
+        width: screenWidth,
+        height: screenHeight,
       child: Stack(
         children: [
           Positioned(
@@ -42,7 +48,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       children: [
                         Positioned(
                           left: -70 * fem,
-                          top: 195 * fem,
+                          top: 195 * fem, //sol alt mor
                           child: Align(
                             child: SizedBox(
                               width: 230.9 * fem,
@@ -57,7 +63,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                         Positioned(
                           left: -55.2869 * fem,
-                          top: 10.9729614258 * fem,
+                          top: 15 * fem,   //sarılar ortak
                           child: Container(
                             width: 567.42 * fem,
                             height: 425.69 * fem,
@@ -99,23 +105,8 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         ),
                         Positioned(
-                          left: 20 * fem,
-                          top: 55 * fem,
-                          child: Align(
-                            child: SizedBox(
-                              width: 55 * fem,
-                              height: 55 * fem,
-                              child: Image.asset(
-                                'assets/page-1/images/group-6802.png',
-                                width: 55 * fem,
-                                height: 55 * fem,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          left: 260 * fem,
-                          top: -25 * fem,
+                          left: 268 * fem,
+                          top: -8 * fem,
                           child: Align(
                             child: SizedBox(
                               width: 180 * fem,
@@ -130,7 +121,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                         Positioned(
                           left: 27.5 * fem,
-                          top: 196 * fem,
+                          top: 200 * fem,
                           child: Align(
                             child: SizedBox(
                               width: 351 * fem,
@@ -152,129 +143,34 @@ class _SignUpPageState extends State<SignUpPage> {
                       ],
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(
-                      20 * fem,
-                      0 * fem,
-                      20 * fem,
-                      0 * fem,
-                    ),
-                    width: double.infinity,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            // Metin alanına tıklandığında yapılacak işlemler
-                          },
-                          child: Container(
-                            padding: EdgeInsets.fromLTRB(
-                              27 * fem,
-                              27 * fem,
-                              27 * fem,
-                              10 * fem,
-                            ),
-                            width: 374 * fem,
-                            height: 63 * fem,
-                            decoration: BoxDecoration(
-                              color: Color(0xfff2f3f7),
-                              borderRadius: BorderRadius.circular(15 * fem),
-                            ),
-                            child: TextField(
-                              decoration: InputDecoration(
-                                hintText: 'Kullanıcı Adı',
-                                border: InputBorder.none,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  reusableTextField("Kullanıcı Adı", Icons.person_outline, false,
+                      _userNameTextController),
+                  const SizedBox(
+                    height: 20,
                   ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(
-                      20 * fem,
-                      15 * fem,
-                      20 * fem,
-                      9 * fem,
-                    ),
-                    width: double.infinity,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            // Metin alanına tıklandığında yapılacak işlemler
-                          },
-                          child: Container(
-                            padding: EdgeInsets.fromLTRB(
-                              27 * fem,
-                              27 * fem,
-                              27 * fem,
-                              10 * fem,
-                            ),
-                            width: 374 * fem,
-                            height: 63 * fem,
-                            decoration: BoxDecoration(
-                              color: Color(0xfff2f3f7),
-                              borderRadius: BorderRadius.circular(15 * fem),
-                            ),
-                            child: TextField(
-                              decoration: InputDecoration(
-                                hintText: 'E-Mail',
-                                border: InputBorder.none,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  reusableTextField("E - Mail", Icons.mail_outline_rounded, false,
+                      _emailTextController),
+                  const SizedBox(
+                    height: 20,
                   ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(
-                      20 * fem,
-                      6 * fem,
-                      20 * fem,
-                      9 * fem,
-                    ),
-                    width: double.infinity,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            // Metin alanına tıklandığında yapılacak işlemler
-                          },
-                          child: Container(
-                            padding: EdgeInsets.fromLTRB(
-                              27 * fem,
-                              27 * fem,
-                              27 * fem,
-                              10 * fem,
-                            ),
-                            width: 374 * fem,
-                            height: 63 * fem,
-                            decoration: BoxDecoration(
-                              color: Color(0xfff2f3f7),
-                              borderRadius: BorderRadius.circular(15 * fem),
-                            ),
-                            child: TextField(
-                              decoration: InputDecoration(
-                                hintText: 'Parola',
-                                border: InputBorder.none,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  reusableTextField("Parola", Icons.lock_outlined, true,
+                      _passwordTextController),
+                  const SizedBox(
+                    height: 20,
                   ),
                   Container(
                     child:
                     GestureDetector(
                       onTap: () {
-                        // Butona tıklandığında yapılacak işlemler
-                        print("Butona Basıldı");
+                        FirebaseAuth.instance.createUserWithEmailAndPassword(email: _emailTextController.text,
+                            password: _passwordTextController.text)
+                            .then((value) {
+                              print("Created New Account");
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => AccountPage()));
+                        }).onError((error, stackTrace){
+                          print("Error ${error.toString()}");
+                        });
                       },
                       child: Container(
                         margin: EdgeInsets.fromLTRB(
@@ -306,13 +202,13 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
 
-
                 ],
               ),
             ),
           ),
         ],
       ),
+    )
     );
   }
 }

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/pages/SignUpPage.dart';
-
-import '../utils/utils.dart';
+import 'package:organize_isler/pages/SignUpPage.dart';
 
 class AccountPage extends StatefulWidget {
   @override
@@ -11,28 +9,20 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
-    double baseWidth = 390;
-    double fem = MediaQuery.of(context).size.width / baseWidth;
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double baseWidth = 414;
+    double fem = screenWidth / baseWidth;
     double ffem = fem * 0.97;
-    return Container(
-      width: double.infinity,
+    return Material(
       child: Container(
-        width: double.infinity,
-        height: 844 * fem,
-        decoration: BoxDecoration(
-          color: Color(0xffffffff),
-        ),
-        child: Container(
-          width: 414 * fem,
-          height: 896 * fem,
-          decoration: BoxDecoration(
-            color: Color(0xffffffff),
-          ),
+        width: screenWidth,
+        height: screenHeight,
           child: Stack(
             children: [
               Positioned(
                 left: -80 * fem,
-                bottom: 490 * fem,
+                bottom: 510 * fem,
                 child: Align(
                   child: SizedBox(
                     width: 474 * fem,
@@ -45,23 +35,8 @@ class _AccountPageState extends State<AccountPage> {
                 ),
               ),
               Positioned(
-                left: 2 * fem,
-                top: 0 * fem,
-                child: Align(
-                  child: SizedBox(
-                    width: 54 * fem,
-                    height: 21 * fem,
-                    child: Image.asset(
-                      'assets/page-4/time-light.png',
-                      width: 54 * fem,
-                      height: 21 * fem,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
                 left: -45 * fem,
-                top: 172 * fem,
+                top: 200 * fem,
                 child: Align(
                   child: SizedBox(
                     width: 500 * fem,
@@ -74,8 +49,8 @@ class _AccountPageState extends State<AccountPage> {
                 ),
               ),
               Positioned(
-                top: 525 * fem,
-                left: 10 * fem,
+                top: 560 * fem,
+                left: 20 * fem,
                 child: Container(
                   child: InkWell(
                     onTap: _onUserAccountPressed,
@@ -110,8 +85,8 @@ class _AccountPageState extends State<AccountPage> {
                 ),
               ),
               Positioned(
-                top: 595 * fem,
-                left: 10 * fem,
+                top: 650 * fem,
+                left: 20 * fem,
                 child: Container(
                   child: InkWell(
                     onTap: _onCompanyAccountPressed,
@@ -146,8 +121,8 @@ class _AccountPageState extends State<AccountPage> {
                 ),
               ),
               Positioned(
-                left: -60 * fem,
-                top: 350 * fem,
+                left: -50 * fem,
+                top: 400 * fem,
                 child: Align(
                   child: SizedBox(
                     width: 500 * fem,
@@ -160,8 +135,8 @@ class _AccountPageState extends State<AccountPage> {
                 ),
               ),
               Positioned(
-                left: -5 ,
-                top: 175 * fem,
+                left: 0 ,
+                top: 190 * fem,
                 child: Align(
                   child: SizedBox(
                     width: 395 * fem,
@@ -184,8 +159,7 @@ class _AccountPageState extends State<AccountPage> {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 
   void _onUserAccountPressed() {

@@ -1,4 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:organize_isler/pages/AccountPage.dart';
+import 'package:organize_isler/pages/HomePage.dart';
+import 'package:organize_isler/pages/ResetPassword.dart';
+
+import '../reusable_widgets/reusable_widgets.dart';
+import 'SignUpPage.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -6,61 +13,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  String? _passwordError;
-
-  @override
-  void dispose() {
-  _emailController.dispose();
-  _passwordController.dispose();
-  super.dispose();
-  }
-
-  void _signIn() {
-  if (_formKey.currentState!.validate()) {
-  // Perform sign-in logic
-  print('Sign In Successful');
-  }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Sign In Page',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: SignInPage(),
-    );
-  }
-}
-
-class SignInPage extends StatefulWidget {
-  @override
-  _SignInPageState createState() => _SignInPageState();
-}
-
-class _SignInPageState extends State<SignInPage> {
-  final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  String? _passwordError;
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-
-  void _signIn() {
-    if (_formKey.currentState!.validate()) {
-      // Perform sign-in logic
-      print('Sign In Successful');
-    }
-  }
+  TextEditingController _passwordTextController = TextEditingController();
+  TextEditingController _emailTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -70,193 +24,227 @@ class _SignInPageState extends State<SignInPage> {
     double fem = screenWidth / baseWidth;
     double ffem = fem * 0.97;
 
-    return Scaffold(
-      body: Container(
-        width: screenWidth,
-        height: screenHeight,
-        child: Stack(
-          children: [
-            Positioned(
-              left: 0,
-              top: 0,
-              child: Container(
-                width: screenWidth,
-                height: screenHeight,
-                decoration: BoxDecoration(
-                  color: Color(0xffffffff),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: screenHeight * 0.54,
-                      child: Stack(
-                        children: [
-                          Positioned(
-                            left: -70 * fem,
-                            top: 195 * fem,
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: SizedBox(
+    return Material(
+      child: Container(
+      width: screenWidth,
+      height: screenHeight,
+      child: Stack(
+        children: [
+          Positioned(
+            left: 0,
+            top: 0,
+            child: Container(
+              width: screenWidth,
+              height: screenHeight,
+              decoration: BoxDecoration(
+                color: Color(0xffffffff),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: screenHeight * 0.54,
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          left: -70 * fem,
+                          top: 195 * fem, //sol alt mor
+                          child: Align(
+                            child: SizedBox(
+                              width: 230.9 * fem,
+                              height: 250.19 * fem,
+                              child: Image.asset(
+                                'assets/page-1/images/vector-cwW.png',
                                 width: 230.9 * fem,
                                 height: 250.19 * fem,
-                                child: Image.asset(
-                                  'assets/page-2/img.png',
-                                  width: 230.9 * fem,
-                                  height: 250.19 * fem,
-                                ),
                               ),
                             ),
                           ),
-                          Positioned(
-                            right: -55.2869 * fem,
-                            top: 10.9729614258 * fem,
-                            child: Container(
-                              width: 567.42 * fem,
-                              height: 425.69 * fem,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(
-                                      0 * fem,
-                                      0 * fem,
-                                      0 * fem,
-                                      30 * fem,
-                                    ),
+                        ),
+                        Positioned(
+                          left: -55.2869 * fem,
+                          top: 15 * fem,   //sarılar ortak
+                          child: Container(
+                            width: 567.42 * fem,
+                            height: 425.69 * fem,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.fromLTRB(
+                                    0 * fem,
+                                    0 * fem,
+                                    0 * fem,
+                                    30 * fem,
+                                  ),
+                                  width: 214.31 * fem,
+                                  height: 161.56 * fem,
+                                  child: Image.asset(
+                                    'assets/page-1/images/vector-rXn.png',
                                     width: 214.31 * fem,
                                     height: 161.56 * fem,
-                                    child: Image.asset(
-                                      'assets/page-2/img_1.png',
-                                      width: 214.31 * fem,
-                                      height: 161.56 * fem,
-                                    ),
                                   ),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(
-                                      320.71 * fem,
-                                      0 * fem,
-                                      0 * fem,
-                                      0 * fem,
-                                    ),
-                                    width: 232.71 * fem,
+                                ),
+                                Container(
+                                  margin: EdgeInsets.fromLTRB(
+                                    320.71 * fem,
+                                    0 * fem,
+                                    0 * fem,
+                                    0 * fem,
+                                  ),
+                                  width: 232.71 * fem,
+                                  height: 232.66 * fem,
+                                  child: Image.asset(
+                                    'assets/page-1/images/vector-tUL.png',
+                                    width: 242.71 * fem,
                                     height: 232.66 * fem,
-                                    child: Image.asset(
-                                      'assets/page-2/img_2.png',
-                                      width: 242.71 * fem,
-                                      height: 232.66 * fem,
-                                    ),
                                   ),
-                                ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 268 * fem,
+                          top: -8 * fem,
+                          child: Align(
+                            child: SizedBox(
+                              width: 180 * fem,
+                              height: 200 * fem,
+                              child: Image.asset(
+                                'assets/page-1/images/vector.png',
+                                width: 195 * fem,
+                                height: 205 * fem,
                               ),
                             ),
                           ),
-
-                          Positioned(
-                            right: 260 * fem,
-                            top: -25 * fem,
-                            child: Align(
-                              alignment: Alignment.centerRight,
-                              child: SizedBox(
-                                width: 180 * fem,
-                                height: 200 * fem,
-                                child: Image.asset(
-                                  'assets/page-2/img_3.png',
-                                  width: 195 * fem,
-                                  height: 205 * fem,
+                        ),
+                        Positioned(
+                          left: 27.5 * fem,
+                          top: 200 * fem,
+                          child: Align(
+                            child: SizedBox(
+                              width: 351 * fem,
+                              height: 62 * fem,
+                              child: Text(
+                                'Tekrar Hoş Geldin!',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily: 'Source Sans 3',
+                                  fontSize: 36 * ffem,
+                                  fontWeight: FontWeight.w700,
+                                  height: 1.1625 * ffem / fem,
+                                  color: Color(0xff000000),
                                 ),
                               ),
                             ),
                           ),
-                          Positioned(
-                            left: 27.5 * fem,
-                            top: 196 * fem,
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: SizedBox(
-                                width: 351 * fem,
-                                height: 62 * fem,
-                                child: Text(
-                                  'Hesabını Oluştur!',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontFamily: 'Source Sans 3',
-                                    fontSize: 36 * ffem,
-                                    fontWeight: FontWeight.w700,
-                                    height: 1.1625 * ffem / fem,
-                                    color: Color(0xff000000),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 40.0),
-                    TextFormField(
-                      controller: _emailController,
-                      decoration: InputDecoration(
-                        hintText: 'Email',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
                         ),
-                      ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter your email';
-                        }
-                        return null;
-                      },
+                      ],
                     ),
-                    SizedBox(height: 20.0),
-                    TextFormField(
-                      controller: _passwordController,
-                      decoration: InputDecoration(
-                        hintText: 'Password',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        errorText: _passwordError,
-                      ),
-                      obscureText: true,
-                      onChanged: (value) {
-                        setState(() {
-                          _passwordError = null; // Clear the error message on each change
+                  ),
+                  reusableTextField("E - Mail", Icons.mail_outline_rounded, false,
+                      _emailTextController),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  reusableTextField("Parola", Icons.lock_outline, true,
+                      _passwordTextController),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    child:
+                    GestureDetector(
+                      onTap: () {
+                        FirebaseAuth.instance.signInWithEmailAndPassword(email: _emailTextController.text,
+                            password: _passwordTextController.text)
+                            .then((value) {
+                          print("Login Account");
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => AccountPage()));
+                        }).onError((error, stackTrace){
+                          print("Error ${error.toString()}");
                         });
                       },
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter your password';
-                        }
-                        if (value.length < 8 || value.length > 16) {
-                          return 'Password must be 8-16 characters long';
-                        }
-                        if (!value.contains(RegExp(r'[A-Z]'))) {
-                          return 'Password must contain at least one uppercase letter';
-                        }
-                        if (!value.contains(RegExp(r'[a-z]'))) {
-                          return 'Password must contain at least one lowercase letter';
-                        }
-                        if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-                          return 'Password must contain at least one punctuation mark';
-                        }
-                        return null;
-                      },
+                      child: Container(
+                        margin: EdgeInsets.fromLTRB(
+                          0 * fem,
+                          10 * fem,
+                          0 * fem,
+                          0 * fem,
+                        ),
+                        width: 356 * fem,
+                        height: 63 * fem,
+                        decoration: BoxDecoration(
+                          color: Color(0xff8e97fd),
+                          borderRadius: BorderRadius.circular(38 * fem),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Giriş Yap',
+                            style: TextStyle(
+                              fontFamily: 'HelveticaNeue',
+                              fontSize: 18 * ffem,
+                              fontWeight: FontWeight.w400,
+                              height: 1.0809999875 * ffem / fem,
+                              letterSpacing: 0.7 * fem,
+                              color: Color(0xfff6f1fb),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                    SizedBox(height: 20.0),
-                    ElevatedButton(
-                      onPressed: _signIn,
-                      child: Text('Sign In'),
-                    ),
-                  ],
-                ),
+                  ),
+                  forgetPassword(context),
+                  signUpOption(context),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
+      )
     );
   }
-  }
+}
+
+Row signUpOption(BuildContext context) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      const Text("Hesabın yok mu?",
+          style: TextStyle(color: Colors.grey)),
+      GestureDetector(
+        onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => SignUpPage()));
+        },
+        child: const Text(
+          " Kayıt Ol",
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        ),
+      )
+    ],
+  );
+}
+
+//Düzenlenicek
+Widget forgetPassword(BuildContext context) {
+  return Container(
+    width: MediaQuery.of(context).size.width,
+    height: 35,
+    alignment: Alignment.bottomRight,
+    child: TextButton(
+      child: const Text(
+        "Forgot Password?",
+        style: TextStyle(color: Colors.white),
+        textAlign: TextAlign.right,
+      ),
+      onPressed: () => Navigator.push(
+          context, MaterialPageRoute(builder: (context) => ResetPassword())),
+    ),
+  );
+}
+
