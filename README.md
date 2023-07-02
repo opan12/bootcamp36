@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # bootcamp36
 # Takım İsmi
 
@@ -87,6 +87,8 @@ https://trello.com/invite/b/ptew1gaJ/ATTI4cb5ec8fe8d1de6e2bafc633ee64aca4D764690
 
 
 ======
+
+
 Sprint 2
 Sprint Notları: User Story'ler product backlog'ların içine yazılmıştır. Product backlog item'lara tıklandığında hikayelerin detayları okunabilir.
 
