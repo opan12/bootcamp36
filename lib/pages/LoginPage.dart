@@ -163,7 +163,7 @@ class _LoginPageState extends State<LoginPage> {
                             .then((value) {
                           print("Login Account");
                           Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => AccountPage()));
+                              MaterialPageRoute(builder: (context) => HomePage()));
                         }).onError((error, stackTrace){
                           print("Error ${error.toString()}");
                         });

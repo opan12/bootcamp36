@@ -39,7 +39,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_core: ^2.14.0
   firebase_auth: ^4.6.3
+  cloud_firestore: ^4.8.2
   google_fonts: ^5.1.0
+  table_calendar: ^3.0.1
+  intl: ^0.17.0
+  json_annotation: ^4.1.0
+  json_serializable: ^4.1.3
 
 dev_dependencies:
   flutter_test:
@@ -82,6 +87,44 @@ flutter:
     - assets/page-4/t4wers-1.png
     - assets/page-4/adsz-tasarm-2.png
     - assets/entrance/deneme.png
+    - assets/home/img.png
+    - assets/home/img_1.png
+    - assets/home/img_2.png
+    - assets/home/img_3.png
+    - assets/home/img_4.png
+    - assets/home/img_5.png
+    - assets/companyprofile/images/organizelogin.png
+    - assets/companyprofile/images/organizefirma.png
+    - assets/companyprofile/images/geri.png
+    - assets/companyprofile/images/beğenme2.png
+    - assets/companyprofile/images/beğenme.png
+    - assets/companyprofile/images/giriş.png
+    - assets/companyprofile/images/gonderilersirket.jpg
+    - assets/servicepage/images/group-19.png
+    - assets/servicepage/images/wifi-signal-light.png
+    - assets/servicepage/images/time-light.png
+    - assets/servicepage/images/undrawlogodesignregfu6-1.png
+    - assets/servicepage/images/ellipse-48.png
+    - assets/servicepage/images/ellipse-50.png
+    - assets/servicepage/images/group-1.png
+    - assets/servicepage/images/group-21.png
+    - assets/servicepage/images/vector.png
+    - assets/servicepage/images/group-24.png
+    - assets/servicepage/images/mask-group.png
+    - assets/servicepage/images/network-signal-light.png
+    - assets/servicepage/images/battery-light.png
+    - assets/servicepage/images/group-6802.png
+    - assets/servicepage/images/mask-group-BGT.png
+    - assets/servicepage/images/time-light-background-mask.png
+    - assets/servicepage/images/ellipse-49.png
+    - assets/servicepage/images/frame-6791.png
+    - assets/servicepage/images/adsz-tasarm-2.png
+    - assets/servicepage/images/time-light-wNo.png
+    - assets/servicepage/images/group-7.png
+    - assets/servicepage/images/adsz-ouu-1.png
+    - assets/servicepage/images/t4wers-1.png
+
+    -
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
