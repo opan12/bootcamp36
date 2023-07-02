@@ -87,16 +87,15 @@ https://trello.com/invite/b/ptew1gaJ/ATTI4cb5ec8fe8d1de6e2bafc633ee64aca4D764690
 
 
 ======
+**Sprint 2**
 
 
-Sprint 2
-Sprint Notları: User Story'ler product backlog'ların içine yazılmıştır. Product backlog item'lara tıklandığında hikayelerin detayları okunabilir.
-
+Sprint Notları:User Story'ler product backlog'ların içine yazılmıştır. Product backlog item'lara tıklandığında hikayelerin detayları okunabilir.
 Sprint içinde tamamlanması tahmin edilen puan: 125 Puan
 
 Puan tamamlama mantığı: Toplamda proje boyunca tamamlanması gereken 350 puanlık backlog bulunmaktadır. İlk sprinte 100 lük kısım kısım
  ayrılmıştı 2. sprint içinde 125 puanlık bir kısım belirlendi.
-Backlog düzeni ve Story seçimleri: Backlog'umuz ilk yapılacak story'lere göre düzenlenmiştir. Sprint başına tahmin edilen puan sayısını geçmeyecek şekilde sıradan seçimler yapılmaktadır. 
+##Backlog düzeni ve Story seçimleri: Backlog'umuz ilk yapılacak story'lere göre düzenlenmiştir. Sprint başına tahmin edilen puan sayısını geçmeyecek şekilde sıradan seçimler yapılmaktadır. 
 
 Story'ler yapılacak işlere  bölünmüştür. 
 Daily Scrum: Daily Scrum toplantılarının gün içinde vakit uyumsuzluğundan dolayı whatsapp üzerinden gerçekleşmesine karar verilmiştir.
@@ -106,15 +105,18 @@ ekipçe karar verilmesi gereken bir durum olunca ya da değerlendirme yapılmas�
 - 
 (https://github.com/opan12/bootcamp36/assets/114245040/6fefc052-14ad-4a4f-9e12-ad3248a88213)
 - **Ürün Durumu**: Ekran görüntüleri
-- 
+- ![image](https://github.com/opan12/bootcamp36/assets/114245040/d0d0c767-bacf-4702-98e3-0ea2df9a1675)
 
-Sprint Review: Alınan kararlar:tüm veri akışların firebase üzerinde yapılmasına karar verilmiştir.Chat ve test işlemlerinin 3.sprint için yapılmasına karar kılınmıştır ayrıca Yorum ve  gönderi kısmı için de  firebase taslağı diğer hafta sprint3 için yapılmasına karar kılınmıştır.Sprint Review katılımcıları: sude nur opan-nihal
+
+Sprint Review: Alınan kararlar:tüm veri akışların firebase üzerinde yapılmasına karar verilmiştir.Chat ve chat kullanıcı ekranı ve test işlemlerinin 3.sprint için yapılmasına karar kılınmıştır ayrıca Yorum ve  gönderi kısmı için de  firebase taslağı diğer hafta sprint3 için yapılmasına karar kılınmıştır.Sprint Review katılımcıları: sude nur opan-nihal çoşkun
 
 Sprint Retrospective:
 
 Takım içindeki proje için ayrılacak vakitin ayrılmasına vurgu yapılmıştır.
 Takimda verilen görevlerin verilen plana uygun tarihte tamamlanmasına vurgu yapılmıştır.
 Takım içinde daha fazla iletişim halinde bulunmasın vurgu yapılmıştır.
+Backlog product url
+
 
 # organize_isler
 
