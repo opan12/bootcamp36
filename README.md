@@ -91,11 +91,14 @@ https://trello.com/invite/b/ptew1gaJ/ATTI4cb5ec8fe8d1de6e2bafc633ee64aca4D764690
 
 
 Sprint Notları:User Story'ler product backlog'ların içine yazılmıştır. Product backlog item'lara tıklandığında hikayelerin detayları okunabilir.
+
+
 Sprint içinde tamamlanması tahmin edilen puan: 125 Puan
 
 Puan tamamlama mantığı: Toplamda proje boyunca tamamlanması gereken 350 puanlık backlog bulunmaktadır. İlk sprinte 100 lük kısım kısım
  ayrılmıştı 2. sprint içinde 125 puanlık bir kısım belirlendi.
-##Backlog düzeni ve Story seçimleri: Backlog'umuz ilk yapılacak story'lere göre düzenlenmiştir. Sprint başına tahmin edilen puan sayısını geçmeyecek şekilde sıradan seçimler yapılmaktadır. 
+ 
+ Backlog düzeni ve Story seçimleri: Backlog'umuz ilk yapılacak story'lere göre düzenlenmiştir. Sprint başına tahmin edilen puan sayısını geçmeyecek şekilde sıradan seçimler yapılmaktadır. 
 
 Story'ler yapılacak işlere  bölünmüştür. 
 Daily Scrum: Daily Scrum toplantılarının gün içinde vakit uyumsuzluğundan dolayı whatsapp üzerinden gerçekleşmesine karar verilmiştir.
