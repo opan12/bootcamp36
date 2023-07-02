@@ -106,7 +106,7 @@ ekipçe karar verilmesi gereken bir durum olunca ya da değerlendirme yapılmas�
 (https://github.com/opan12/bootcamp36/assets/114245040/6fefc052-14ad-4a4f-9e12-ad3248a88213)
 - **Ürün Durumu**: Ekran görüntüleri
 - ![image](https://github.com/opan12/bootcamp36/assets/114245040/d0d0c767-bacf-4702-98e3-0ea2df9a1675)
-
+https://drive.google.com/drive/u/0/folders/1A0EsKE7wKmFImQ-LlKkg5SoZgcva9kxj
 
 Sprint Review: Alınan kararlar:tüm veri akışların firebase üzerinde yapılmasına karar verilmiştir.Chat ve chat kullanıcı ekranı ve test işlemlerinin 3.sprint için yapılmasına karar kılınmıştır ayrıca Yorum ve  gönderi kısmı için de  firebase taslağı diğer hafta sprint3 için yapılmasına karar kılınmıştır.Sprint Review katılımcıları: sude nur opan-nihal çoşkun
 
@@ -115,6 +115,8 @@ Sprint Retrospective:
 Takım içindeki proje için ayrılacak vakitin ayrılmasına vurgu yapılmıştır.
 Takimda verilen görevlerin verilen plana uygun tarihte tamamlanmasına vurgu yapılmıştır.
 Takım içinde daha fazla iletişim halinde bulunmasın vurgu yapılmıştır.
+
+
 Backlog product url
 https://trello.com/invite/b/ptew1gaJ/ATTI4cb5ec8fe8d1de6e2bafc633ee64aca4D7646901/is-bolumu
 
