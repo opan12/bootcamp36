@@ -116,7 +116,7 @@ Takım içindeki proje için ayrılacak vakitin ayrılmasına vurgu yapılmışt
 Takimda verilen görevlerin verilen plana uygun tarihte tamamlanmasına vurgu yapılmıştır.
 Takım içinde daha fazla iletişim halinde bulunmasın vurgu yapılmıştır.
 Backlog product url
-
+https://trello.com/invite/b/ptew1gaJ/ATTI4cb5ec8fe8d1de6e2bafc633ee64aca4D7646901/is-bolumu
 
 # organize_isler
 
