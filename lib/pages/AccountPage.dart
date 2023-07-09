@@ -1,4 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:organize_isler/pages/CompanyEditPage.dart';
+import 'package:organize_isler/pages/CompanyProfilePage.dart';
+import 'package:organize_isler/pages/HomePage.dart';
 import 'package:organize_isler/pages/SignUpPage.dart';
 
 class AccountPage extends StatefulWidget {
@@ -18,160 +23,203 @@ class _AccountPageState extends State<AccountPage> {
       child: Container(
         width: screenWidth,
         height: screenHeight,
-          child: Stack(
-            children: [
-              Positioned(
-                left: -80 * fem,
-                bottom: 510 * fem,
-                child: Align(
-                  child: SizedBox(
-                    width: 474 * fem,
-                    height: 469 * fem,
-                    child: Image.asset(
-                      'assets/page-4/adsz-ouu-1.png',
-                      fit: BoxFit.cover,
+        child: Stack(
+          children: [
+            Positioned(
+              left: -80 * fem,
+              bottom: 510 * fem,
+              child: Align(
+                child: SizedBox(
+                  width: 474 * fem,
+                  height: 469 * fem,
+                  child: Image.asset(
+                    'assets/page-4/adsz-ouu-1.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              left: -45 * fem,
+              top: 180 * fem,
+              child: Align(
+                child: SizedBox(
+                  width: 500 * fem,
+                  height: 500 * fem,
+                  child: Image.asset(
+                    'assets/page-4/t4wers-1.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              left: -50 * fem,
+              top: 340 * fem,
+              child: Align(
+                child: SizedBox(
+                  width: 500 * fem,
+                  height: 500 * fem,
+                  child: Image.asset(
+                    'assets/page-4/adsz-tasarm-2.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              left: 3,
+              top: 160 * fem,
+              child: Align(
+                child: SizedBox(
+                  width: 395 * fem,
+                  height: 206 * fem,
+                  child: Text(
+                    'Merhaba,\n organizasyonun her adımında yardımcı\n Organize İşler’e Hoşgeldin!',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'Source Sans 3',
+                      fontSize: 30,
+                      fontWeight: FontWeight.w700,
+                      height: 1.3 * ffem / fem,
+                      letterSpacing: 0 * fem,
+                      color: Color(0xff000000),
                     ),
                   ),
                 ),
               ),
-              Positioned(
-                left: -45 * fem,
-                top: 200 * fem,
-                child: Align(
-                  child: SizedBox(
-                    width: 500 * fem,
-                    height: 500 * fem,
-                    child: Image.asset(
-                      'assets/page-4/t4wers-1.png',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 560 * fem,
-                left: 20 * fem,
+            ),
+            Positioned(
+              top: 520,
+              left: 25,
+              child: Container(
+              child: GestureDetector(
+                onTap: () {
+                    print("şirket hesabı seçildi");
+                    _onCompanyAccountPressed();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => CompanyEditPage()),
+                    );
+                },
                 child: Container(
-                  child: InkWell(
-                    onTap: _onUserAccountPressed,
-                    child: Container(
-                      margin: EdgeInsets.fromLTRB(
-                        0 * fem,
-                        10 * fem,
-                        0 * fem,
-                        0 * fem,
-                      ),
-                      width: 356 * fem,
-                      height: 63 * fem,
-                      decoration: BoxDecoration(
-                        color: Color(0xff8e97fd),
-                        borderRadius: BorderRadius.circular(38 * fem),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'ŞİRKET HESABI',
-                          style: TextStyle(
-                            fontFamily: 'HelveticaNeue',
-                            fontSize: 18 * ffem,
-                            fontWeight: FontWeight.w400,
-                            height: 1.0809999875 * ffem / fem,
-                            letterSpacing: 0.7 * fem,
-                            color: Color(0xfff6f1fb),
-                          ),
-                        ),
-                      ),
-                    ),
+                  margin: EdgeInsets.fromLTRB(
+                    0 * fem,
+                    10 * fem,
+                    0 * fem,
+                    0 * fem,
                   ),
-                ),
-              ),
-              Positioned(
-                top: 650 * fem,
-                left: 20 * fem,
-                child: Container(
-                  child: InkWell(
-                    onTap: _onCompanyAccountPressed,
-                    child: Container(
-                      margin: EdgeInsets.fromLTRB(
-                        0 * fem,
-                        10 * fem,
-                        0 * fem,
-                        0 * fem,
-                      ),
-                      width: 356 * fem,
-                      height: 63 * fem,
-                      decoration: BoxDecoration(
-                        color: Color(0xff8e97fd),
-                        borderRadius: BorderRadius.circular(38 * fem),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'KULLANICI HESABI',
-                          style: TextStyle(
-                            fontFamily: 'HelveticaNeue',
-                            fontSize: 18 * ffem,
-                            fontWeight: FontWeight.w400,
-                            height: 1.0809999875 * ffem / fem,
-                            letterSpacing: 0.7 * fem,
-                            color: Color(0xfff6f1fb),
-                          ),
-                        ),
-                      ),
-                    ),
+                  width: 356 * fem,
+                  height: 63 * fem,
+                  decoration: BoxDecoration(
+                    color: Color(0xff8e97fd),
+                    borderRadius: BorderRadius.circular(38 * fem),
                   ),
-                ),
-              ),
-              Positioned(
-                left: -50 * fem,
-                top: 400 * fem,
-                child: Align(
-                  child: SizedBox(
-                    width: 500 * fem,
-                    height: 500 * fem,
-                    child: Image.asset(
-                      'assets/page-4/adsz-tasarm-2.png',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 0 ,
-                top: 190 * fem,
-                child: Align(
-                  child: SizedBox(
-                    width: 395 * fem,
-                    height: 206 * fem,
+                  child: Center(
                     child: Text(
-                      'Merhaba Afsar, organizasyonun her adımında yardımcı\n Organize İşler’e Hoşgeldin!',
-                      textAlign: TextAlign.center,
+                      'ŞİRKET HESABI',
                       style: TextStyle(
-                        fontFamily: 'Source Sans 3',
-                        fontSize: 29 * ffem,
-                        fontWeight: FontWeight.w700,
-                        height: 1.3 * ffem / fem,
-                        letterSpacing: 0 * fem,
-                        color: Color(0xff000000),
+                        fontFamily: 'HelveticaNeue',
+                        fontSize: 18 * ffem,
+                        fontWeight: FontWeight.w400,
+                        height: 1.0809999875 * ffem / fem,
+                        letterSpacing: 0.7 * fem,
+                        color: Color(0xfff6f1fb),
                       ),
                     ),
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+            ),
+            Positioned(
+              top: 590,
+              left: 25,
+              child: Container(
+                child: GestureDetector(
+                  onTap: () {
+                    print("kullanıcı hesabı seçildi");
+                    _onUserAccountPressed();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePage()),
+                    );
+                  },
+                  child: Container(
+                    margin: EdgeInsets.fromLTRB(
+                      0 * fem,
+                      10 * fem,
+                      0 * fem,
+                      0 * fem,
+                    ),
+                    width: 356 * fem,
+                    height: 63 * fem,
+                    decoration: BoxDecoration(
+                      color: Color(0xff8e97fd),
+                      borderRadius: BorderRadius.circular(38 * fem),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'KULLANICI HESABI',
+                        style: TextStyle(
+                          fontFamily: 'HelveticaNeue',
+                          fontSize: 18 * ffem,
+                          fontWeight: FontWeight.w400,
+                          height: 1.0809999875 * ffem / fem,
+                          letterSpacing: 0.7 * fem,
+                          color: Color(0xfff6f1fb),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
-      );
-  }
-
-  void _onUserAccountPressed() {
-    print("KULLANICI HESABI");
-    // İşlemleri buraya ekleyebilirsiniz
-  }
-
-  void _onCompanyAccountPressed() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => SignUpPage()),
+      ),
     );
   }
 }
+
+
+
+void _onUserAccountPressed() async {
+    print("KULLANICI HESABI");
+
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      String userType = 'regular';
+
+      // Firestore kullanıcı kaydını güncelle
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUser.uid)
+          .update({'userType': userType});
+
+      print("Kullanıcı tipi güncellendi: $userType");
+    } else {
+      print("Hata: Geçerli kullanıcı bulunamadı.");
+    }
+  }
+
+  void _onCompanyAccountPressed() async {
+    print("ŞİRKET HESABI");
+
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      String userType = 'company';
+
+      // Firestore kullanıcı kaydını güncelle
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUser.uid)
+          .update({'userType': userType});
+
+      print("Kullanıcı tipi güncellendi: $userType");
+    } else {
+      print("Hata: Geçerli kullanıcı bulunamadı.");
+    }
+  }
+
 

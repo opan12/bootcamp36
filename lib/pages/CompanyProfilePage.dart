@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class CompanyProfilePage extends StatefulWidget {
@@ -12,6 +14,44 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
 
   TextEditingController _commentController = TextEditingController();
   bool _isCommenting = false; // Yorum yapılıyor mu kontrolü için bir değişken
+
+  String? companyName;
+  String? category;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchCompanyName();
+    fetchCategory();
+  }
+
+  void fetchCompanyName() async {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUser.uid)
+          .get();
+
+      setState(() {
+        companyName = snapshot['companyName'];
+      });
+    }
+  }
+
+  void fetchCategory() async {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUser.uid)
+          .get();
+
+      setState(() {
+        category = snapshot['category'];
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +98,7 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      'Firma(A)',
+                      companyName ?? 'Firma(x)',
                       style: TextStyle(
                         fontFamily: 'Source Sans 3',
                         fontWeight: FontWeight.bold,
@@ -69,12 +109,12 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                     Padding(
                       padding: const EdgeInsets.only(top: 20.0),
                       child: Text(
-                        '(Düğün)',
+                        category ?? 'kategori',
                         style: TextStyle(
                           fontFamily: 'Source Sans 3',
-                          fontWeight: FontWeight.normal,
-                          fontSize: 18,
-                          color: Color(0xFFA1A4B2),
+                          fontWeight: FontWeight.w800,
+                          fontSize: 20,
+                          color: Color(0xFF3F414E),
                         ),
                       ),
                     ),

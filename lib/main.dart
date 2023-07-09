@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:organize_isler/pages/AccountPage.dart';
+import 'package:organize_isler/pages/CompanyEditPage.dart';
 import 'package:organize_isler/pages/CompanyProfilePage.dart';
 import 'package:organize_isler/pages/DatePage.dart';
 import 'package:organize_isler/pages/EntrancePage.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
       ),
       home: Scaffold(
         body: SingleChildScrollView(
-          child: EntrancePage(),
+          child: CompanyEditPage(),
         ),
       ),
     );

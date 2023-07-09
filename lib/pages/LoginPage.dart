@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:organize_isler/pages/AccountPage.dart';
+import 'package:organize_isler/pages/CompanyProfilePage.dart';
 import 'package:organize_isler/pages/HomePage.dart';
 import 'package:organize_isler/pages/ResetPassword.dart';
 
@@ -15,6 +17,29 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
+
+  Future<String?> getUserTypeFromFirestore(String email, String password) async {
+    // Implement your logic to fetch the userType from Firestore using the provided email and password
+    // You can use the Firebase SDK or Firestore package to query the Firestore database
+
+    // Here's an example using the Firebase SDK to retrieve the userType based on the user's email
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .where('email', isEqualTo: email)
+          .limit(1)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        return querySnapshot.docs.first.get('userType');
+      } else {
+        return null; // User not found or userType not available
+      }
+    } catch (error) {
+      print("Error fetching userType from Firestore: $error");
+      return null;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -154,49 +179,67 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    child:
-                    GestureDetector(
-                      onTap: () {
-                        FirebaseAuth.instance.signInWithEmailAndPassword(email: _emailTextController.text,
-                            password: _passwordTextController.text)
-                            .then((value) {
-                          print("Login Account");
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => HomePage()));
-                        }).onError((error, stackTrace){
-                          print("Error ${error.toString()}");
-                        });
-                      },
-                      child: Container(
-                        margin: EdgeInsets.fromLTRB(
-                          0 * fem,
-                          10 * fem,
-                          0 * fem,
-                          0 * fem,
-                        ),
-                        width: 356 * fem,
-                        height: 63 * fem,
-                        decoration: BoxDecoration(
-                          color: Color(0xff8e97fd),
-                          borderRadius: BorderRadius.circular(38 * fem),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Giriş Yap',
-                            style: TextStyle(
-                              fontFamily: 'HelveticaNeue',
-                              fontSize: 18 * ffem,
-                              fontWeight: FontWeight.w400,
-                              height: 1.0809999875 * ffem / fem,
-                              letterSpacing: 0.7 * fem,
-                              color: Color(0xfff6f1fb),
-                            ),
+                Container(
+                  child: GestureDetector(
+                    onTap: () {
+                      FirebaseAuth.instance
+                          .signInWithEmailAndPassword(
+                          email: _emailTextController.text,
+                          password: _passwordTextController.text)
+                          .then((value) async {
+                        print("Login Account");
+
+                        // Fetch the userType from Firestore
+                        String? userType = await getUserTypeFromFirestore(
+                            _emailTextController.text, _passwordTextController.text);
+
+                        // Check the user type and navigate accordingly
+                        if (userType == "regular") {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => HomePage()),
+                          );
+                        } else if (userType == "company") {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => CompanyProfilePage()),
+                          );
+                        } else {
+                          // Handle other user types or display an error message
+                        }
+                      }).onError((error, stackTrace) {
+                        print("Error ${error.toString()}");
+                      });
+                    },
+                    child: Container(
+                      margin: EdgeInsets.fromLTRB(
+                        0 * fem,
+                        10 * fem,
+                        0 * fem,
+                        0 * fem,
+                      ),
+                      width: 356 * fem,
+                      height: 63 * fem,
+                      decoration: BoxDecoration(
+                        color: Color(0xff8e97fd),
+                        borderRadius: BorderRadius.circular(38 * fem),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Giriş Yap',
+                          style: TextStyle(
+                            fontFamily: 'HelveticaNeue',
+                            fontSize: 18 * ffem,
+                            fontWeight: FontWeight.w400,
+                            height: 1.0809999875 * ffem / fem,
+                            letterSpacing: 0.7 * fem,
+                            color: Color(0xfff6f1fb),
                           ),
                         ),
                       ),
                     ),
                   ),
+                ),
                   forgetPassword(context),
                   signUpOption(context),
                 ],

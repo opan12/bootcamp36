@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:organize_isler/pages/DatePage.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -68,7 +71,12 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      // Handle container 1 click
+                      print("kullanıcı düğün kategorisini seçti");
+                      _userCategoryPressed('dügün');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => DatePage()),
+                      );
                     },
                     child: Container(
                       width: 176 * fem,
@@ -88,7 +96,12 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(width: 10), // Boşluk eklemek için SizedBox kullandık
                   GestureDetector(
                     onTap: () {
-                      // Handle container 2 click
+                      print("kullanıcı yemek kategorisini seçti");
+                      _userCategoryPressed('yemek');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => DatePage()),
+                      );
                     },
                     child: Container(
                       width: 176.43 * fem,
@@ -116,7 +129,12 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      // Handle container 3 click
+                      print("kullanıcı nişan kategorisini seçti");
+                      _userCategoryPressed('nisan');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => DatePage()),
+                      );
                     },
                     child: Container(
                       width: 176.43 * fem,
@@ -155,7 +173,12 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(width: 10),
                   GestureDetector(
                     onTap: () {
-                      // Handle container 4 click
+                      print("kullanıcı doğum günü kategorisini seçti");
+                      _userCategoryPressed('dogumgünü');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => DatePage()),
+                      );
                     },
                     child: Container(
                       width: 176.43 * fem,
@@ -183,7 +206,12 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      // Handle container 5 click
+                      print("kullanıcı parti kategorisini seçti");
+                      _userCategoryPressed('parti');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => DatePage()),
+                      );
                     },
                     child: Container(
                       width: 176.43 * fem,
@@ -203,7 +231,12 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(width: 10),
                   GestureDetector(
                     onTap: () {
-                      // Handle container 6 click
+                      print("kullanıcı baby shower kategorisini seçti");
+                      _userCategoryPressed('babyshower');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => DatePage()),
+                      );
                     },
                     child: Container(
                       width: 176.43 * fem,
@@ -236,5 +269,24 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+}
+
+void _userCategoryPressed(String selectedCategory) async {
+  print("KULLANICI KATEGORİ SEÇTİ");
+
+  User? currentUser = FirebaseAuth.instance.currentUser;
+  if (currentUser != null) {
+    String category = selectedCategory;
+
+    // Firestore kullanıcı kaydını güncelle
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUser.uid)
+        .update({'category': category});
+
+    print("Kullanıcı kategorisi güncellendi: $category");
+  } else {
+    print("Hata: Geçerli kullanıcı bulunamadı.");
   }
 }

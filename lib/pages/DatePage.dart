@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class DatePage extends StatefulWidget {
@@ -13,9 +15,84 @@ class _DatePageState extends State<DatePage> {
     'Adana',
     'Adıyaman',
     'Afyon',
-    // Add the other 78 cities here
+    'Ağrı',
+    'Aksaray',
+    'Amasya',
+    'Ankara',
+    'Antalya',
+    'Ardahan',
+    'Artvin',
+    'Aydın',
+    'Balıkesir',
+    'Bartın',
+    'Batman',
+    'Bayburt',
+    'Bilecik',
+    'Bingöl',
+    'Bitlis',
+    'Bolu',
+    'Burdur',
+    'Bursa',
+    'Çanakkale',
+    'Çankırı',
+    'Çorum',
+    'Denizli',
+    'Diyarbakır',
+    'Düzce',
+    'Edirne',
+    'Elazığ',
+    'Erzincan',
+    'Erzurum',
+    'Eskişehir',
+    'Gaziantep',
+    'Giresun',
+    'Gümüşhane',
+    'Hakkâri',
+    'Hatay',
+    'Iğdır',
+    'Isparta',
+    'İçel (Mersin)',
+    'İstanbul',
+    'İzmir',
+    'Kahramanmaraş',
+    'Karabük',
+    'Karaman',
+    'Kars',
+    'Kastamonu',
+    'Kayseri',
+    'Kırıkkale',
+    'Kırklareli',
+    'Kırşehir',
+    'Kilis',
+    'Kocaeli',
+    'Konya',
+    'Kütahya',
+    'Malatya',
+    'Manisa',
+    'Mardin',
+    'Muğla',
+    'Muş',
+    'Nevşehir',
+    'Niğde',
+    'Ordu',
+    'Osmaniye',
+    'Rize',
+    'Sakarya',
+    'Samsun',
+    'Siirt',
+    'Sinop',
+    'Sivas',
+    'Şanlıurfa',
+    'Şırnak',
+    'Tekirdağ',
+    'Tokat',
+    'Trabzon',
+    'Tunceli',
+    'Uşak',
+    'Van',
+    'Yalova',
     'Yozgat',
-    'Zonguldak',
+    'Zonguldak'
   ];
 
   Future<void> _selectDate(BuildContext context) async {
@@ -96,6 +173,7 @@ class _DatePageState extends State<DatePage> {
                   onChanged: (String? value) {
                     setState(() {
                       selectedCity = value;
+                      _userCityPressed(value);
                     });
                   },
                   items: cities.map((String city) {
@@ -146,7 +224,7 @@ class _DatePageState extends State<DatePage> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
-                primary: Colors.deepPurpleAccent,
+                primary: Color(0xff8e97fd),
                 padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20), // Butonun yüksekliğini ayarlamak için padding ekledik
                 minimumSize: Size(0, 0), // Butonun genişliğini ayarlamak için minimumSize'ı tam genişlik olarak belirledik
               ),
@@ -158,5 +236,24 @@ class _DatePageState extends State<DatePage> {
     )
         )
     );
+  }
+
+  void _userCityPressed(String? selectedCity) async {
+    print("KULLANICI ŞEHİR SEÇTİ");
+
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      String? city = selectedCity;
+
+      // Firestore kullanıcı kaydını güncelle
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUser.uid)
+          .update({'city': city});
+
+      print("Kullanıcı şehiri güncellendi: $city");
+    } else {
+      print("Hata: Geçerli kullanıcı bulunamadı.");
+    }
   }
 }
