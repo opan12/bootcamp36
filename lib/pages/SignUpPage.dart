@@ -138,6 +138,21 @@ class _SignUpPageState extends State<SignUpPage> {
                               ),
                             ),
                           ),
+                          Positioned( //logo
+                            left: 110 * fem,
+                            top: 308 * fem,
+                            child: Align(
+                              child: SizedBox(
+                                width: 180 * fem,
+                                height: 200 * fem,
+                                child: Image.asset(
+                                  'assets/page-1/images/organizefirmalogo2.png',
+                                  width: 195 * fem,
+                                  height: 205 * fem,
+                                ),
+                              ),
+                            ),
+                          ),
                           Positioned(
                             left: 27.5 * fem,
                             top: 200 * fem,

@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:organize_isler/pages/ChatPage.dart';
 import 'package:organize_isler/pages/PostListPage.dart';
 import 'package:organize_isler/pages/ServicePage.dart';
 
@@ -62,7 +64,7 @@ class ProfilePage extends StatelessWidget {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 180.0),
+                      padding: const EdgeInsets.only(top: 250.0),
                       child: Column(
                         children: [
                           Text(
@@ -213,6 +215,27 @@ class ProfilePage extends StatelessWidget {
                             ),
                           ),
                           SizedBox(height: 10),
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ChatPage(currentUserId: FirebaseAuth.instance.currentUser!.uid, otherUserId: userId),
+                                ),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                              primary: Color(0xFF8E97FD),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                            ),
+                            child: Text(
+                              'Mesaj',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ),
                         ],
                       ),
                     ),

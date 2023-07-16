@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:organize_isler/pages/GamePage.dart';
 import 'package:organize_isler/pages/LoginPage.dart';
 import 'SignUpPage.dart';
 
@@ -45,6 +46,21 @@ class EntrancePage extends StatelessWidget {
                 ]),
                 )
                 ),
+              Positioned( //logo
+                left: 110 * fem,
+                top: 708 * fem,
+                child: Align(
+                  child: SizedBox(
+                    width: 180 * fem,
+                    height: 200 * fem,
+                    child: Image.asset(
+                      'assets/page-1/images/organizefirmalogo2.png',
+                      width: 195 * fem,
+                      height: 205 * fem,
+                    ),
+                  ),
+                ),
+              ),
               Positioned(
                   child: Align(
                 alignment: Alignment.topRight,
@@ -63,7 +79,41 @@ class EntrancePage extends StatelessWidget {
                 ),
               )),
               Positioned(
-                top: 649,
+                  top: 275,
+                  left: 180,
+                  child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  // Butona tıklanıyor
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) => GamePage()));
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 10.0,
+                                    horizontal: 32.0,
+                                  ),
+                                  primary: Color(0xFF8E97FD),
+                                ),
+                                child: const Text(
+                                  'Bir Bilmece ?',
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                              ),
+                            ),
+                          ]
+                      )
+                  )),
+              Positioned(
+                top: 648,
                   left: 50,
                   child: Align(
     alignment: Alignment.bottomCenter,

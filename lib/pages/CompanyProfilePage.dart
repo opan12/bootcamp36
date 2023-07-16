@@ -6,9 +6,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:organize_isler/pages/CompanyEditPage.dart';
+import 'package:organize_isler/pages/CompanyMessagesPage.dart';
 import 'package:organize_isler/pages/PostListPage.dart';
 import 'package:organize_isler/pages/Postpage.dart';
-
+import 'package:organize_isler/pages/CompanyChatPage.dart'; // Import the CompanyChatPage
 
 class CompanyProfilePage extends StatefulWidget {
   @override
@@ -151,6 +152,21 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                   ),
                 ),
               ),
+              Positioned(
+                top: 308.0,
+                right: 120.0,
+                child: IconButton(
+                  icon: Icon(Icons.message_rounded, color: Colors.red),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CompanyMessagesPage(currentUserId: FirebaseAuth.instance.currentUser!.uid)
+                      ),
+                    );
+                  },
+                ),
+              ),
               SingleChildScrollView(
                 physics: _isCommenting ? NeverScrollableScrollPhysics() : null,
                 child: Column(
@@ -282,7 +298,7 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => Yorumlar(comments: _comments),
+                                    builder: (context) => CompanyMessagesPage(currentUserId: FirebaseAuth.instance.currentUser!.uid)
                                 ),
                               );
                             },
