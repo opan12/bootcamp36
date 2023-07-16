@@ -10,7 +10,7 @@ Takım Flutter 36
 - Sude Nur Opan: Scrum Master /  Developer
 - Nihal Coşkun : Product Owner/developer
 - Mustafa Oğuz Topaloğlu:  Developer
-- Özcan   Özen     :aktif olmaya üye
+- Özcan   Özen     :aktif olmayan üye
 - Ceren yurtlu:aktif olmayan üye
 
 ## Ürün İsmi
@@ -121,6 +121,31 @@ Takım içinde daha fazla iletişim halinde bulunmasın vurgu yapılmıştır.
 
 Backlog product url
 https://trello.com/invite/b/ptew1gaJ/ATTI4cb5ec8fe8d1de6e2bafc633ee64aca4D7646901/is-bolumu
+#sprint 3
+Sprint Notları:User Story'ler product backlog'ların içine yazılmıştır. Product backlog item'lara tıklandığında hikayelerin detayları okunabilir.
+
+Sprint içinde tamamlanması tahmin edilen puan: 125 Puan
+
+Puan tamamlama mantığı: Toplamda proje boyunca tamamlanması gereken 350 puanlık backlog bulunmaktadır.  3. sprint için 125 puanlık bir kısım belirlendi.
+ 
+Backlog düzeni ve Story seçimleri: Backlog'umuz ilk yapılacak story'lere göre düzenlenmiştir. Sprint başına tahmin edilen puan sayısını geçmeyecek şekilde sıradan seçimler yapılmaktadır.
+
+Story'ler yapılacak işlere bölünmüştür. 
+Daily Scrum: Daily Scrum toplantıları bu sprintte Google Meet'de ve ekip farklı saatlerde uygun olduğu için whatsapp üzerinden daha çok iletişme geçişmiştir .meets de toplantılar kısa değerlendirmeler ve ekip içi bilgilendirme için özet geçilmiştir.
+
+ sprint board update
+ 
+ürün durumu:
+https://drive.google.com/drive/folders/1E6vArTl4jPJWkKGy0jrSiJrWlw6PlPwL?usp=sharing
+
+Sprint Review: Alınan kararlar:Sayfalarda görünüş için düzenlemeler yapılıp kodları düzenlenmiştir.Gönderiler ve yorum sayfaları için firebase bağlantısı ayarLanmış chat bağlanmıştır.proje bitimi için son düzenlemeler ypaılmıştır
+Sprint Review katılımcıları: sude opan
+
+Sprint Retrospective:
+Projede öncelikli olan görevlerlerin bitirilmesi için vurgu yapılmıştır
+Product backlog url
+ https://trello.com/invite/b/ptew1gaJ/ATTI4cb5ec8fe8d1de6e2bafc633ee64aca4D7646901/is-bolumu
+
 
 # organize_isler
 
