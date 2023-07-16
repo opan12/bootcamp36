@@ -124,7 +124,11 @@ https://trello.com/invite/b/ptew1gaJ/ATTI4cb5ec8fe8d1de6e2bafc633ee64aca4D764690
 
 
 
-#sprint 3
+##sprint 3
+
+
+
+
 Sprint Notları:User Story'ler product backlog'ların içine yazılmıştır. Product backlog item'lara tıklandığında hikayelerin detayları okunabilir.
 
 Sprint içinde tamamlanması tahmin edilen puan: 125 Puan
@@ -135,19 +139,25 @@ Backlog düzeni ve Story seçimleri: Backlog'umuz ilk yapılacak story'lere gör
 
 Story'ler yapılacak işlere bölünmüştür. 
 Daily Scrum: Daily Scrum toplantıları bu sprintte Google Meet'de ve ekip farklı saatlerde uygun olduğu için whatsapp üzerinden daha çok iletişme geçişmiştir .Meets de toplantılar kısa değerlendirmeler ve ekip içi bilgilendirme için özet geçilmiştir.
+[sprint-3-meets-detayları.pdf](https://github.com/opan12/bootcamp36/files/12065259/sprint-3-meets-detaylari.pdf)
+
 
  sprint board update
+ https://trello.com/invite/b/ptew1gaJ/ATTI4cb5ec8fe8d1de6e2bafc633ee64aca4D7646901/is-bolumu
  
 ürün durumu:
-![image](https://github.com/opan12/bootcamp36/assets/114245040/c11aaf22-49e0-43aa-8ea3-a16f170c8736)
+![image](https://github.com/opan12/bootcamp36/assets/114245040/59bd5cff-220e-486f-b1e1-d1c460d6a89c)
+
 
 https://drive.google.com/drive/folders/1E6vArTl4jPJWkKGy0jrSiJrWlw6PlPwL?usp=sharing
 
 Sprint Review: Alınan kararlar:Sayfalarda görünüş için düzenlemeler yapılıp kodları düzenlenmiştir.Gönderiler ve yorum sayfaları için firebase bağlantısı ayarLanmış chat bağlanmıştır.proje bitimi için son düzenlemeler ypaılmıştır
-Sprint Review katılımcıları: sude opan
+Sprint Review katılımcıları: sude opan-nihal çoşkun-m.oğuz topaloğlu
 
 Sprint Retrospective:
 Projede öncelikli olan görevlerlerin bitirilmesi için vurgu yapılmıştır
+
+
 Product backlog url
  https://trello.com/invite/b/ptew1gaJ/ATTI4cb5ec8fe8d1de6e2bafc633ee64aca4D7646901/is-bolumu
 
