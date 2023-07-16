@@ -156,6 +156,7 @@ Sprint Review katılımcıları: sude opan-nihal çoşkun-m.oğuz topaloğlu
 
 Sprint Retrospective:
 Projede öncelikli olan görevlerlerin bitirilmesi için vurgu yapılmıştır
+Ekip içinde iletişimin artmasına vurgu yapılmıştır.
 
 
 Product backlog url
