@@ -159,7 +159,7 @@ Projede öncelikli olan görevlerlerin bitirilmesi için vurgu yapılmıştır
 Ekip içinde iletişimin artmasına vurgu yapılmıştır.
 
 
-Product backlog url
+ Backlog product url
  https://trello.com/invite/b/ptew1gaJ/ATTI4cb5ec8fe8d1de6e2bafc633ee64aca4D7646901/is-bolumu
 
 
