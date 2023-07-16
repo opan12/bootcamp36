@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:organize_isler/pages/ServicePage.dart';
 
 class DatePage extends StatefulWidget {
   @override
@@ -219,6 +220,8 @@ class _DatePageState extends State<DatePage> {
                 } else {
                   print('İl ve tarih seçimi yapınız.');
                 }
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ServicePage()));
               },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(

@@ -1,6 +1,12 @@
+import 'dart:io';
+import 'dart:convert';
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:organize_isler/pages/CompanyProfilePage.dart';
 import 'package:organize_isler/reusable_widgets/reusable_widgets.dart';
 
@@ -11,10 +17,12 @@ class CompanyEditPage extends StatefulWidget {
 
 class _CompanyEditPageState extends State<CompanyEditPage> {
   TextEditingController _companyNameTextController = TextEditingController();
-
+  
   String? companyName;
   String? selectedCity;
   String? selectedCategory;
+  File? imageFile;
+
   List<String> categories = [
     'Düğün',
     'Nişan',
@@ -107,6 +115,75 @@ class _CompanyEditPageState extends State<CompanyEditPage> {
     'Zonguldak'
   ];
 
+  void _showImageDialog() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("Profil Fotoğrafını Seç!"),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                InkWell(
+                  onTap: () {
+                  //get from camera
+                    _getFromCamera();
+                  },
+                  child: Row(
+                    children: [
+                      Padding(padding: EdgeInsets.all(4.0),
+                      child: Icon(
+                        Icons.camera_alt_outlined,
+                        color: Color(0xff8e97fd),
+                      ),),
+                      Text("Kamera", style: TextStyle(color: Color(0xff8e97fd))),
+                    ],
+                  ),
+                ),
+                InkWell(
+                  onTap: ()
+                  {
+                    //get from gallery
+                    _getFromGallery();
+                  },
+                  child: Row(
+                    children: [
+                      Padding(padding: EdgeInsets.all(4.0),
+                        child: Icon(
+                          Icons.camera,
+                          color: Color(0xff8e97fd),
+                        ),),
+                      Text("Galeri", style: TextStyle(color: Color(0xff8e97fd))),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          );
+        }
+    );
+  }
+
+  void _getFromCamera() async
+  {
+    XFile? pickedFile = await ImagePicker().pickImage(source: ImageSource.camera);
+    _userProfilePicture(pickedFile!.path);
+    setState(() {
+      imageFile = File(pickedFile!.path);
+    });
+    Navigator.pop(context);
+  }
+
+  void _getFromGallery() async
+  {
+    XFile? pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    _userProfilePicture(pickedFile!.path);
+    setState(() {
+      imageFile = File(pickedFile!.path);
+    });
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -156,7 +233,35 @@ class _CompanyEditPageState extends State<CompanyEditPage> {
                       )
                   ),
                   Positioned(
-                    top: 250,
+                    top: 230,
+                      left: 107,
+                      child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                     children: [
+                       GestureDetector(
+                         onTap: ()
+                           {
+                            //pick profile page
+                             _showImageDialog();
+                       },
+                       child: CircleAvatar(
+                         radius: 75,
+                         backgroundImage: imageFile == null
+                         ?
+                         const AssetImage("assets/companyprofile/images/cateringprofile.png")
+                             :
+                             Image.file(imageFile!).image,
+                         backgroundColor: Colors.white,
+                       ),
+                       ),
+                     ],
+                  )),
+                  Positioned(
+                    top: 350,
+                      left: 220,
+                      child: Icon(Icons.camera_enhance,color: Color(0xff8e97fd),)),
+                  Positioned(
+                    top: 390,
                     left: 16,
                     right: 16,
                     child: Column(
@@ -185,7 +290,7 @@ class _CompanyEditPageState extends State<CompanyEditPage> {
                     ),
                   ),
                   Positioned(
-                    top: 350,
+                    top: 470,
                     left: 15,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -241,12 +346,13 @@ class _CompanyEditPageState extends State<CompanyEditPage> {
                     ),
                   ),
                   Positioned(
-                    top: 430,
+                    top: 560,
                     left: 50,
                     child: Container(
                       margin: EdgeInsets.symmetric(horizontal: 20),
                       child: ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
+                           // imageUrl = await ref.getDownloadURL();
                           print("Firma Bilgileri kaydedildi");
                           Navigator.push(
                             context,
@@ -325,6 +431,32 @@ void _userCompanyName(String? _companyName) async {
         .update({'companyName': companyName});
 
     print("Firma Adını güncellendi: $companyName");
+  } else {
+    print("Hata: Geçerli kullanıcı bulunamadı.");
+  }
+}
+
+void _userProfilePicture(String? _picturePath) async {
+  print("FİRMA PROFİL FOTOĞRAFINI GÜNCELLEDİ");
+
+  User? currentUser = FirebaseAuth.instance.currentUser;
+  if (currentUser != null) {
+    String? profilePicturePath = _picturePath;
+
+    // Firestore kullanıcı kaydını güncelle
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUser.uid)
+        .update({'profilePicture': profilePicturePath});
+
+    print("Firma profil fotoğrafı güncellendi: $profilePicturePath");
+
+    // Firebase Storage'a resmi yükle
+    Reference storageRef =
+    FirebaseStorage.instance.ref().child('companyProfilePictures').child(currentUser.uid + '.jpg');
+    await storageRef.putFile(File(profilePicturePath!));
+
+    print("Resim Firebase Storage'a yüklendi");
   } else {
     print("Hata: Geçerli kullanıcı bulunamadı.");
   }

@@ -1,114 +1,23 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:image_picker/image_picker.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:organize_isler/pages/CompanyEditPage.dart';
 import 'package:organize_isler/pages/PostListPage.dart';
-import 'package:organize_isler/pages/Postpage.dart';
+import 'package:organize_isler/pages/ServicePage.dart';
+
+class ProfilePage extends StatelessWidget {
+  final String userId;
+  final String companyName;
+  final String category;
+  final String profilePicture;
+
+  ProfilePage({required this.userId, required this.companyName, required this.category, required this.profilePicture});
 
 
-class CompanyProfilePage extends StatefulWidget {
-  @override
-  _CompanyProfilePageState createState() => _CompanyProfilePageState();
-}
 
-class _CompanyProfilePageState extends State<CompanyProfilePage> {
   bool _liked = false;
   int _likeCount = 0;
   List<String> _comments = [];
 
   TextEditingController _commentController = TextEditingController();
   bool _isCommenting = false;
-
-  String? companyName;
-  String? category;
-  String? profileImageUrl;
-
-  @override
-  void initState() {
-    super.initState();
-    fetchCompanyName();
-    fetchCategory();
-    fetchProfileImage();
-  }
-
-  void fetchCompanyName() async {
-    User? currentUser = FirebaseAuth.instance.currentUser;
-    if (currentUser != null) {
-      DocumentSnapshot snapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(currentUser.uid)
-          .get();
-
-      setState(() {
-        companyName = snapshot['companyName'];
-      });
-    }
-  }
-
-  void fetchCategory() async {
-    User? currentUser = FirebaseAuth.instance.currentUser;
-    if (currentUser != null) {
-      DocumentSnapshot snapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(currentUser.uid)
-          .get();
-
-      setState(() {
-        category = snapshot['category'];
-      });
-    }
-  }
-
-  void fetchProfileImage() async {
-    User? currentUser = FirebaseAuth.instance.currentUser;
-    if (currentUser != null) {
-      String profileImagePath = 'companyProfilePages/${currentUser.uid}.jpg';
-      firebase_storage.Reference ref =
-      firebase_storage.FirebaseStorage.instance.ref().child(profileImagePath);
-
-      try {
-        String downloadURL = await ref.getDownloadURL();
-        setState(() {
-          profileImageUrl = downloadURL;
-        });
-      } catch (e) {
-        print('Hata: $e');
-      }
-    }
-  }
-
-  void uploadProfileImage(File image) async {
-    User? currentUser = FirebaseAuth.instance.currentUser;
-    if (currentUser != null) {
-      String profileImagePath = 'companyProfilePages/${currentUser.uid}.jpg';
-      firebase_storage.Reference ref =
-      firebase_storage.FirebaseStorage.instance.ref().child(profileImagePath);
-
-      try {
-        await ref.putFile(image);
-        String downloadURL = await ref.getDownloadURL();
-        setState(() {
-          profileImageUrl = downloadURL;
-        });
-      } catch (e) {
-        print('Hata: $e');
-      }
-    }
-  }
-
-  Future<void> pickImage() async {
-    final picker = ImagePicker();
-    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
-
-    if (pickedImage != null) {
-      File imageFile = File(pickedImage.path);
-      uploadProfileImage(imageFile);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,9 +26,7 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
       child: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: profileImageUrl != null
-                ? NetworkImage(profileImageUrl!)
-                : AssetImage('assets/companyprofile/images/organizefirma.png') as ImageProvider,
+            image: NetworkImage(profilePicture),
             alignment: Alignment.topCenter, // Resmi üst kısma hizala
             fit: BoxFit.fitWidth, // Resmi genişlik boyutuna sığacak şekilde ölçeklendir
           ),
@@ -135,11 +42,10 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                   padding: const EdgeInsets.only(top: 40.0, left: 20.0),
                   child: InkWell(
                     onTap: () {
-                      // Geri butonuna tıklama işlemleri
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => CompanyEditPage(),
+                          builder: (context) => ServicePage(),
                         ),
                       );
                     },
@@ -156,11 +62,11 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 240.0),
+                      padding: const EdgeInsets.only(top: 180.0),
                       child: Column(
                         children: [
                           Text(
-                            companyName ?? 'Firma(x)',
+                            companyName,
                             style: TextStyle(
                               fontFamily: 'Source Sans 3',
                               fontWeight: FontWeight.bold,
@@ -171,7 +77,7 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                           Padding(
                             padding: const EdgeInsets.only(top: 10, bottom: 3),
                             child: Text(
-                              category ?? 'kategori',
+                              category,
                               style: TextStyle(
                                 fontFamily: 'Source Sans 3',
                                 fontWeight: FontWeight.w800,
@@ -231,6 +137,32 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                         ],
                       ),
                     ),
+                    SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 50.0),
+                      child: TextField(
+                        controller: _commentController,
+                        onTap: () {
+                          setState() {
+                            _isCommenting = true;
+                          };
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'Yorum yap...',
+                          border: OutlineInputBorder(),
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState() {
+                                _comments.add(_commentController.text);
+                                _commentController.clear();
+                                _isCommenting = false;
+                              };
+                            },
+                            icon: Icon(Icons.send),
+                          ),
+                        ),
+                      ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(),
                       child: Column(
@@ -239,28 +171,10 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                             onPressed: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => PostPage(user: FirebaseAuth.instance.currentUser)),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                              primary: Color(0xFF8E97FD),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                            ),
-                            child: Text(
-                              'Gönderi Ekle',
-                              style: TextStyle(fontSize: 18),
-                            ),
-                          ),
-                          SizedBox(height: 10),ElevatedButton(
-                            onPressed: () {
-                              User? currentUser = FirebaseAuth.instance.currentUser;
-                              Navigator.push(
-                                context,
                                 MaterialPageRoute(
-                                  builder: (context) => PostListPage(userId: currentUser!.uid),
+                                  builder: (context) => PostListPage(
+                                    userId: userId
+                                  ),
                                 ),
                               );
                             },
@@ -272,7 +186,7 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                               ),
                             ),
                             child: Text(
-                              'Gönderilerini Gör',
+                              'Gönderileri Gör',
                               style: TextStyle(fontSize: 18),
                             ),
                           ),
@@ -299,45 +213,6 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                             ),
                           ),
                           SizedBox(height: 10),
-                          ElevatedButton(
-                            onPressed: () {
-                              pickImage();
-                            },
-                            style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                              primary: Color(0xFF8E97FD),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                            ),
-                            child: Text(
-                              'Profil Resmini Düzenle',
-                              style: TextStyle(fontSize: 18),
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => CompanyEditPage(),
-                                ),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                              primary: Color(0xFF8E97FD),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                            ),
-                            child: Text(
-                              'Firma Bilgilerini Güncelle',
-                              style: TextStyle(fontSize: 18),
-                            ),
-                          ),
-                          SizedBox(height: 10),
                         ],
                       ),
                     ),
@@ -354,7 +229,6 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
   @override
   void dispose() {
     _commentController.dispose();
-    super.dispose();
   }
 }
 
