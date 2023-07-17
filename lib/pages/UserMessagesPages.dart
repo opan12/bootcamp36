@@ -1,17 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:organize_isler/pages/CompanyChatPage.dart';
+import 'package:organize_isler/pages/ChatPage.dart';
 
-class CompanyMessagesPage extends StatefulWidget {
-  final String currentUserId; // Şirket kullanıcısının ID'si
+class UserMessagesPage extends StatefulWidget {
+  final String currentUserId; // Kullanıcının ID'si
 
-  CompanyMessagesPage({required this.currentUserId});
+  UserMessagesPage({required this.currentUserId});
 
   @override
-  _CompanyMessagesPageState createState() => _CompanyMessagesPageState();
+  _UserMessagesPageState createState() => _UserMessagesPageState();
 }
 
-class _CompanyMessagesPageState extends State<CompanyMessagesPage> {
+class _UserMessagesPageState extends State<UserMessagesPage> {
   final CollectionReference _chatsCollection =
   FirebaseFirestore.instance.collection('chats');
   final CollectionReference _usersCollection =
@@ -26,7 +26,7 @@ class _CompanyMessagesPageState extends State<CompanyMessagesPage> {
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: _chatsCollection
-            .where('companyUserId', isEqualTo: widget.currentUserId)
+            .where('userUserId', isEqualTo: widget.currentUserId)
             .orderBy('lastMessageTimestamp', descending: true)
             .snapshots(),
         builder: (context, snapshot) {
@@ -51,32 +51,41 @@ class _CompanyMessagesPageState extends State<CompanyMessagesPage> {
           }
 
           return ListView.builder(
-            itemCount: chats.length,
+            itemCount: chats.length * 2 - 1, // Divider'lar dahil edildiği için öğe sayısı iki katına çıkarıldı
             itemBuilder: (context, index) {
-              final chat = chats[index].data() as Map<String, dynamic>;
-              final otherUserId = chat['userUserId'];
+              // Her iki öğe arasına Divider ekleyin
+              if (index.isOdd) {
+                return Divider();
+              }
+
+              final chatIndex = index ~/ 2; // Gerçek chat dizinini hesaplayın
+
+              final chat = chats[chatIndex].data() as Map<String, dynamic>;
+              final otherCompanyId = chat['companyUserId'];
               final lastMessage = chat['lastMessage'];
 
               return FutureBuilder<DocumentSnapshot>(
-                future: _fetchUserName(otherUserId),
+                future: _fetchCompanyName(otherCompanyId),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Container();
                   }
 
-                  final userData = snapshot.data!.data() as Map<String, dynamic>;
-                  final userName = userData['userName'];
+                  final companyData =
+                  snapshot.data!.data() as Map<String, dynamic>;
+                  final companyName = companyData['companyName'];
 
                   return ListTile(
-                    title: Text(userName),
+                    title: Text(companyName),
                     subtitle: Text(lastMessage),
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => CompanyChatPage(
+                          builder: (context) => ChatPage(
                             currentUserId: widget.currentUserId,
-                            otherUserId: otherUserId,
+                            otherCompanyId: otherCompanyId,
+                            otherCompanyName: companyName,
                           ),
                         ),
                       );
@@ -91,7 +100,7 @@ class _CompanyMessagesPageState extends State<CompanyMessagesPage> {
     );
   }
 
-  Future<DocumentSnapshot> _fetchUserName(String userId) {
-    return _usersCollection.doc(userId).get();
+  Future<DocumentSnapshot> _fetchCompanyName(String companyId) {
+    return _usersCollection.doc(companyId).get();
   }
 }

@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:organize_isler/pages/ChatPage.dart';
 import 'package:organize_isler/pages/PostListPage.dart';
 import 'package:organize_isler/pages/ServicePage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   final String userId;
   final String companyName;
   final String category;
@@ -12,8 +13,11 @@ class ProfilePage extends StatelessWidget {
 
   ProfilePage({required this.userId, required this.companyName, required this.category, required this.profilePicture});
 
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
 
-
+class _ProfilePageState extends State<ProfilePage> {
   bool _liked = false;
   int _likeCount = 0;
   List<String> _comments = [];
@@ -22,13 +26,40 @@ class ProfilePage extends StatelessWidget {
   bool _isCommenting = false;
 
   @override
+  void initState() {
+    super.initState();
+    _fetchLikeCount();
+  }
+
+  Future<void> _fetchLikeCount() async {
+    final docSnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(widget.userId)
+        .get();
+
+    if (docSnapshot.exists) {
+      final userData = docSnapshot.data() as Map<String, dynamic>;
+      setState(() {
+        _likeCount = userData['likeCount'] ?? 0;
+      });
+    }
+  }
+
+  Future<void> _updateLikeCount(int newLikeCount) async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(widget.userId)
+        .update({'likeCount': newLikeCount});
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white, // Arka plan rengini beyaz yap
       child: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: NetworkImage(profilePicture),
+            image: NetworkImage(widget.profilePicture),
             alignment: Alignment.topCenter, // Resmi üst kısma hizala
             fit: BoxFit.fitWidth, // Resmi genişlik boyutuna sığacak şekilde ölçeklendir
           ),
@@ -68,7 +99,7 @@ class ProfilePage extends StatelessWidget {
                       child: Column(
                         children: [
                           Text(
-                            companyName,
+                            widget.companyName,
                             style: TextStyle(
                               fontFamily: 'Source Sans 3',
                               fontWeight: FontWeight.bold,
@@ -79,7 +110,7 @@ class ProfilePage extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(top: 10, bottom: 3),
                             child: Text(
-                              category,
+                              widget.category,
                               style: TextStyle(
                                 fontFamily: 'Source Sans 3',
                                 fontWeight: FontWeight.w800,
@@ -136,6 +167,21 @@ class ProfilePage extends StatelessWidget {
                               ),
                             ),
                           ),
+                          IconButton(
+                            onPressed: _liked
+                                ? null
+                                : () {
+                              setState(() {
+                                _likeCount++;
+                                _updateLikeCount(_likeCount);
+                                _liked = true;
+                              });
+                            },
+                            icon: Icon(
+                              _liked ? Icons.favorite : Icons.favorite_border,
+                              color: _liked ? Colors.red : null,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -145,20 +191,20 @@ class ProfilePage extends StatelessWidget {
                       child: TextField(
                         controller: _commentController,
                         onTap: () {
-                          setState() {
+                          setState(() {
                             _isCommenting = true;
-                          };
+                          });
                         },
                         decoration: InputDecoration(
                           hintText: 'Yorum yap...',
                           border: OutlineInputBorder(),
                           suffixIcon: IconButton(
                             onPressed: () {
-                              setState() {
+                              setState(() {
                                 _comments.add(_commentController.text);
                                 _commentController.clear();
                                 _isCommenting = false;
-                              };
+                              });
                             },
                             icon: Icon(Icons.send),
                           ),
@@ -174,9 +220,7 @@ class ProfilePage extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => PostListPage(
-                                    userId: userId
-                                  ),
+                                  builder: (context) => PostListPage(userId: widget.userId),
                                 ),
                               );
                             },
@@ -220,13 +264,17 @@ class ProfilePage extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => ChatPage(currentUserId: FirebaseAuth.instance.currentUser!.uid, otherUserId: userId),
+                                  builder: (context) => ChatPage(
+                                    currentUserId: FirebaseAuth.instance.currentUser!.uid,
+                                    otherCompanyId: widget.userId,
+                                    otherCompanyName: widget.companyName,
+                                  ),
                                 ),
                               );
                             },
                             style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                              primary: Color(0xFF8E97FD),
+                              primary: Colors.red,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30),
                               ),
@@ -252,6 +300,7 @@ class ProfilePage extends StatelessWidget {
   @override
   void dispose() {
     _commentController.dispose();
+    super.dispose();
   }
 }
 

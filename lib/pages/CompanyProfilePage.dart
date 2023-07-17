@@ -17,7 +17,6 @@ class CompanyProfilePage extends StatefulWidget {
 }
 
 class _CompanyProfilePageState extends State<CompanyProfilePage> {
-  bool _liked = false;
   int _likeCount = 0;
   List<String> _comments = [];
 
@@ -34,6 +33,7 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
     fetchCompanyName();
     fetchCategory();
     fetchProfileImage();
+    fetchLikeCount();
   }
 
   void fetchCompanyName() async {
@@ -79,6 +79,20 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
       } catch (e) {
         print('Hata: $e');
       }
+    }
+  }
+
+  void fetchLikeCount() async {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUser.uid)
+          .get();
+
+      setState(() {
+        _likeCount = snapshot['likeCount'] ?? 0;
+      });
     }
   }
 
@@ -152,21 +166,6 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                   ),
                 ),
               ),
-              Positioned(
-                top: 308.0,
-                right: 120.0,
-                child: IconButton(
-                  icon: Icon(Icons.message_rounded, color: Colors.red),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CompanyMessagesPage(currentUserId: FirebaseAuth.instance.currentUser!.uid)
-                      ),
-                    );
-                  },
-                ),
-              ),
               SingleChildScrollView(
                 physics: _isCommenting ? NeverScrollableScrollPhysics() : null,
                 child: Column(
@@ -214,7 +213,7 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                     ),
                     SizedBox(height: 5),
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 5),
+                      padding: const EdgeInsets.only(bottom: 5, right: 15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -227,7 +226,7 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                               color: Color(0xFF3F414E),
                             ),
                           ),
-                          SizedBox(width: 8),
+                          SizedBox(width: 5),
                           Container(
                             padding: EdgeInsets.all(8),
                             decoration: BoxDecoration(
@@ -242,6 +241,21 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                                 fontSize: 18,
                                 color: Color(0xFF3F414E),
                               ),
+                            ),
+                          ),
+                          SizedBox(width: 8),
+                          ElevatedButton(
+                            onPressed: _navigateToCompanyMessagesPage,
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                              primary: Colors.red,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                            ),
+                            child: Text(
+                              'Mesajlar',
+                              style: TextStyle(fontSize: 17),
                             ),
                           ),
                         ],
@@ -270,7 +284,8 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                               style: TextStyle(fontSize: 18),
                             ),
                           ),
-                          SizedBox(height: 10),ElevatedButton(
+                          SizedBox(height: 10),
+                          ElevatedButton(
                             onPressed: () {
                               User? currentUser = FirebaseAuth.instance.currentUser;
                               Navigator.push(
@@ -298,7 +313,7 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => CompanyMessagesPage(currentUserId: FirebaseAuth.instance.currentUser!.uid)
+                                  builder: (context) => CompanyMessagesPage(currentUserId: FirebaseAuth.instance.currentUser!.uid),
                                 ),
                               );
                             },
@@ -367,12 +382,22 @@ class _CompanyProfilePageState extends State<CompanyProfilePage> {
     );
   }
 
+  void _navigateToCompanyMessagesPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CompanyMessagesPage(currentUserId: FirebaseAuth.instance.currentUser!.uid),
+      ),
+    );
+  }
+
   @override
   void dispose() {
     _commentController.dispose();
     super.dispose();
   }
 }
+
 
 
 Yorumlar({required List<String> comments}) {}

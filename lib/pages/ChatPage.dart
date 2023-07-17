@@ -1,11 +1,16 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class ChatPage extends StatefulWidget {
   final String currentUserId; // Mevcut kullanıcının ID'si
-  final String otherUserId; // Diğer kullanıcının ID'si
+  final String otherCompanyId; // Diğer şirketin ID'si
+  final String otherCompanyName; // Diğer şirketin adı
 
-  ChatPage({required this.currentUserId, required this.otherUserId});
+  ChatPage({
+    required this.currentUserId,
+    required this.otherCompanyId,
+    required this.otherCompanyName,
+  });
 
   @override
   _ChatPageState createState() => _ChatPageState();
@@ -15,35 +20,14 @@ class _ChatPageState extends State<ChatPage> {
   final TextEditingController _messageController = TextEditingController();
   final CollectionReference _chatsCollection =
   FirebaseFirestore.instance.collection('chats');
-  final CollectionReference _usersCollection =
-  FirebaseFirestore.instance.collection('users');
-
-  String _otherUserName = '';
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchOtherUserName();
-  }
-
-  Future<void> _fetchOtherUserName() async {
-    final docSnapshot =
-    await _usersCollection.doc(widget.otherUserId).get();
-
-    if (docSnapshot.exists) {
-      final userData = docSnapshot.data() as Map<String, dynamic>;
-      final userName = userData['userName'] as String;
-      setState(() {
-        _otherUserName = userName;
-      });
-    }
-  }
+  final CollectionReference _companiesCollection =
+  FirebaseFirestore.instance.collection('companies');
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chat with $_otherUserName'),
+        title: Text('Chat with ${widget.otherCompanyName}'),
         backgroundColor: Color(0xFF8E97FD),
       ),
       body: Column(
@@ -68,9 +52,11 @@ class _ChatPageState extends State<ChatPage> {
 
                       return ListTile(
                         title: Text(message['text']),
-                        subtitle: Text(message['senderId'] == widget.currentUserId
-                            ? 'You'
-                            : _otherUserName),
+                        subtitle: Text(
+                          message['senderId'] == widget.currentUserId
+                              ? 'You'
+                              : widget.otherCompanyName,
+                        ),
                       );
                     },
                   );
@@ -90,7 +76,7 @@ class _ChatPageState extends State<ChatPage> {
                   child: TextField(
                     controller: _messageController,
                     decoration: InputDecoration(
-                      hintText: 'Mesajınızı yazın...',
+                      hintText: 'Write your message...',
                     ),
                   ),
                 ),
@@ -107,10 +93,12 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   String _getChatId() {
-    // Chat ID'sini oluşturmak için iki kullanıcının ID'sini sıralı bir şekilde birleştiriyoruz.
-    final List<String> userIds = [widget.currentUserId, widget.otherUserId];
-    userIds.sort();
-    return userIds.join('_');
+    final List<String> companyIds = [
+      widget.currentUserId,
+      widget.otherCompanyId,
+    ];
+    companyIds.sort();
+    return companyIds.join('_');
   }
 
   void _sendMessage() {
@@ -123,10 +111,16 @@ class _ChatPageState extends State<ChatPage> {
         'timestamp': Timestamp.now(),
       };
 
-      _chatsCollection
-          .doc(_getChatId())
-          .collection('messages')
-          .add(message);
+      final chatId = _getChatId();
+
+      _chatsCollection.doc(chatId).set({
+        'companyUserId': widget.otherCompanyId,
+        'userUserId': widget.currentUserId,
+        'lastMessage': messageText,
+        'lastMessageTimestamp': Timestamp.now(),
+      });
+
+      _chatsCollection.doc(chatId).collection('messages').add(message);
 
       _messageController.clear();
     }

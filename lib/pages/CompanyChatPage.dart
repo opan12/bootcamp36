@@ -44,6 +44,7 @@ class _CompanyChatPageState extends State<CompanyChatPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Chat with $_otherUserName'),
+        backgroundColor: Color(0xFF8E97FD),
       ),
       body: Column(
         children: [

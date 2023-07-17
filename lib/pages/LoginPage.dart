@@ -5,6 +5,7 @@ import 'package:organize_isler/pages/AccountPage.dart';
 import 'package:organize_isler/pages/CompanyProfilePage.dart';
 import 'package:organize_isler/pages/HomePage.dart';
 import 'package:organize_isler/pages/ResetPassword.dart';
+import 'package:organize_isler/pages/ServicePage.dart';
 
 import '../reusable_widgets/reusable_widgets.dart';
 import 'SignUpPage.dart';
@@ -210,9 +211,10 @@ class _LoginPageState extends State<LoginPage> {
 
                         // Check the user type and navigate accordingly
                         if (userType == "regular") {
+
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => HomePage()),
+                            MaterialPageRoute(builder: (context) => ServicePage()),
                           );
                         } else if (userType == "company") {
                           Navigator.push(
